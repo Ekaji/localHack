@@ -14,7 +14,7 @@ const definitionSchema = new mongoose.Schema({
         required: true,
     },
 
-    definition: {
+    defined: {
         type: String,
         required: true
     },

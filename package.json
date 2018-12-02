@@ -9,9 +9,11 @@
   "author": "Hassan Sani",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "express": "^4.16.4",
     "handlebars": "^4.0.12",
     "hbs": "^4.0.1",
+    "jsonwebtoken": "^8.4.0",
     "mongodb-stitch-browser-sdk": "^4.1.0",
     "mongoose": "^5.3.14",
     "morgan": "^1.9.1"
