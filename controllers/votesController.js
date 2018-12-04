@@ -7,14 +7,26 @@ exports.createVote = (req, res) => {
         vote: req.body.vote
     });
 
-    vote
-        .save()
-        .exec()
-        .then((result) => {
-            res.status(200).json(result);
-        }).catch((err) => {
-            res.status(500).json(err);
-        });
+    Votes
+        .findOne()
+        .where('voter', req.body.voter)
+        .where('definition', req.body.definition)
+        .where('vote', req.body.vote)
+        .then(r => {
+            if (!r) {
+                vote
+                    .save()
+                    .then((result) => {
+                        res.status(200).json(result);
+                    }).catch((err) => {
+                        res.status(500).json(err);
+                    });
+            } else {
+                res.status(409).send({
+                    message: "Vote already casted"
+                });
+            }
+        })
 }
 
 exports.getVotesByUser = (req, res) => {
@@ -31,11 +43,13 @@ exports.getVotesByUser = (req, res) => {
 
 exports.getVotesCountYesByContent = (req, res) => {
     Votes
-        .count()
+        .countDocuments()
         .where('definition', req.params.id)
         .where('vote', 1)
         .then((result) => {
-            res.status(200).send(result);
+            res.status(200).json({
+                result
+            });
         }).catch((err) => {
             res.status(500).json(err);
         });
@@ -47,7 +61,25 @@ exports.getVotesCountNoByContent = (req, res) => {
         .where('definition', req.params.id)
         .where('vote', 0)
         .then((result) => {
-            res.status(200).send(result);
+            res.status(200).send({
+                result
+            });
+        }).catch((err) => {
+            res.status(500).json(err);
+        });
+}
+
+exports.checkUserVotes = (req, res) => {
+    Votes
+        .findOne()
+        .where('voter', req.params.userId)
+        .where('definition', req.params.defId)
+        .then((result) => {
+            if (!result) {
+                res.status(200).send(false);
+            } else {
+                res.status(200).send(true);
+            }
         }).catch((err) => {
             res.status(500).json(err);
         });
@@ -55,7 +87,10 @@ exports.getVotesCountNoByContent = (req, res) => {
 
 exports.deleteVote = (req, res) => {
     Votes
-        .findByIdAndDelete(req.params.id)
+        .findOneAndDelete()
+        .where('voter', req.params.id)
+        .where('definition', req.params.defId)
+        .where('vote', req.params.vote)
         .then((result) => {
             if (!result) {
                 res.status(404).json({

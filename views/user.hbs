@@ -1,17 +1,45 @@
-<div class="col-6 mx-auto my-4 shadow rounded p-4">
-<form>
-  <div class="form-group">
-    <label for="fullName">Full Name</label>
-    <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Full Name">
+<div class="col-6 mx-auto my-4">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs text-center card-header-tabs">
+        <li class="nav-item">
+          <a href="" class="nav-link" id="register-form-link">Register</a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link" id="login-form-link">Login</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body" id="register-form">
+      <form name="register-form" id="register">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" required class="form-control" name="fullName" id="fullName" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" required class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" required minlength="8" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button disabled id="registerBtn" class="btn btn-primary" type="submit">Register</button>
+      </form>
+
+    </div>
+    <div class="card-body" id="login-form">
+      <form name="login-form" id="login">
+        <div class="form-group">
+          <label for="loginemail">Email</label>
+          <input type="email" class="form-control" name="email" id="loginemail" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="loginpassword" name="password" placeholder="Password">
+        </div>
+        <button class="btn btn-primary" disabled id="loginBtn" type="submit">Login</button>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-  </div>
-  <button class="btn btn-primary" type="submit">Submit</button>
-</form>
 </div>

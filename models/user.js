@@ -1,7 +1,7 @@
-const mongoos = require('mongoose');
-mongoos.Promise = global.Promise;
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-const UserSchema = new mongoos.Schema({
+const UserSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: true

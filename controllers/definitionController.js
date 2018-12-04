@@ -9,7 +9,6 @@ exports.createDefinition = (req, res) => {
 
     definition
         .save()
-        .exec()
         .then((result) => {
             res.status(200).json({
                 result,
@@ -23,8 +22,8 @@ exports.createDefinition = (req, res) => {
 exports.getDefinitionById = (req, res) => {
     Definition
         .findById(req.params.id)
-        .populate('User', '-password')
-        .populate('Word')
+        .populate('user', '-password')
+        .populate('word')
         .then((result) => {
             if (!result) {
                 res.status(404).json({
@@ -42,7 +41,8 @@ exports.getWordDefinition = (req, res) => {
     Definition
         .find()
         .where('word', req.params.id)
-        .populate('User', '-password')
+        .populate('user', '-password')
+        .populate('word')
         .then(result => {
             res.status(200).json(result);
         })
@@ -55,7 +55,7 @@ exports.getUserDefinition = (req, res) => {
     Definition
         .find()
         .where('user', req.params.id)
-        .populate('Word')
+        .populate('word')
         .then((result) => {
             res.status(200).json(result);
         }).catch((err) => {
@@ -80,8 +80,8 @@ exports.updateDefinition = (req, res) => {
                 contex: 'query'
             }
         )
-        .populate('User', '-password')
-        .populate('Word')
+        .populate('user', '-password')
+        .populate('word')
         .then((result) => {
             if (!result) {
                 res.status(404).json({

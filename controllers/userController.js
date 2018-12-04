@@ -25,6 +25,7 @@ exports.validateRegister = (req, res, next) => {
 
 
 exports.createUser = (req, res) => {
+    console.log('object :', req.body);
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.status(500).json({
@@ -50,9 +51,19 @@ exports.createUser = (req, res) => {
                         user
                             .save()
                             .then((result) => {
+                                const token = jwt.sign({
+                                        email: result.email,
+                                        userId: result._id
+                                    },
+                                    process.env.JWT_KEY, {
+                                        expiresIn: "1W"
+                                    }
+                                );
+
                                 res.status(200).json({
                                     result,
-                                    message: "User Registered successfully",
+                                    token,
+                                    message: "User Registered successfully"
                                 });
                             }).catch((err) => {
                                 res.status(500).json({
@@ -96,7 +107,7 @@ exports.loginUser = (req, res) => {
                     return res.status(200).json({
                         message: "Auth successful",
                         token: token,
-                        user: user
+                        result: user
                     });
                 }
             })
@@ -111,6 +122,7 @@ exports.loginUser = (req, res) => {
 exports.getUserById = (req, res) => {
     User
         .findById(req.params.id)
+        .populate('-password')
         .exec()
         .then(result => {
             if (!result) {

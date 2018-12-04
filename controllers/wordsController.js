@@ -18,7 +18,7 @@ exports.createWord = (req, res) => {
 exports.getWords = (req, res) => {
     Words
         .find({})
-        .populate('User', '-password')
+        .populate('user', '-password')
         .then(result => {
             res.status(200).json(result);
         })
