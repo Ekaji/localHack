@@ -241,7 +241,7 @@ $(document).ready(function () {
                         result.forEach(element => {
                             let newDiv = document.createElement('div');
                             newDiv.classList.add('card');
-                            newDiv.classList.add('m-2')
+                            newDiv.classList.add('my-2')
                             let definedDiv = document.createElement('div');
                             definedDiv.classList.add('card-body');
                             definedDiv.classList.add('p-2');
