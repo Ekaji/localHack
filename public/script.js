@@ -288,7 +288,9 @@ $(document).ready(function () {
                             newDiv.innerHTML = `
                              <div class="card-header">
                                ${element.word}
-                               <button class="mx-2 btn btn-sm btn-primary" data-toggle="modal" data-word-id="${element._id}" data-word-cont="${element.word}" data-target="#defineModal">Define</button>
+                               <button class="mx-1 btn btn-sm btn-primary" data-toggle="modal" data-word-id="${element._id}" data-word-cont="${element.word}" data-target="#defineModal">Define</button>
+                               <!-- <button class="mx-1 btn btn-sm btn-success" data-toggle="modal" data-word-id="${element._id}" data-word-cont="${element.word}" data-target="#defineModal">Edit</button>
+                               <button class="mx-1 btn btn-sm btn-danger" data-toggle="modal" data-word-id="${element._id}" data-word-cont="${element.word}" data-target="#defineModal">Delete</button> -->
                              </div>
                              `;
                             newDiv.appendChild(definedDiv)
@@ -315,12 +317,12 @@ $(document).ready(function () {
         $('#defineModal').on('show.bs.modal', function (event) {
             if (localStorage.getItem('token')) {
                 var button = $(event.relatedTarget) // Button that triggered the modal
-                var recipient = button.data('wordCont');
+                var wordCont = button.data('wordCont');
                 let wordId = button.data('wordId');
                 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
                 // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
                 var modal = $(this)
-                modal.find('.modal-title').text('Define: ' + recipient)
+                modal.find('.modal-title').text('Define: ' + wordCont)
                 let defineBtn = modal.find('#defineBtn');
                 let defineText = modal.find('#definition');
     
